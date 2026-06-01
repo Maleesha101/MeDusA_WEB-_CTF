@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg: #050806;
+  --panel: rgba(10, 16, 12, 0.82);
+  --panel-border: rgba(33, 185, 63, 0.3);
+  --text: #f3fff5;
+  --muted: #8fa89a;
+  --accent: #4ef06d;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top, rgba(33, 185, 63, 0.2), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(13, 109, 55, 0.22), transparent 28%),
+    linear-gradient(180deg, #060807 0%, #040605 60%, #020302 100%);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.8));
+  opacity: 0.28;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(78, 240, 109, 0.35);
+}
+
+@layer components {
+  .medusa-shell {
+    @apply relative overflow-hidden rounded-3xl border border-emerald-400/20 bg-black/35 backdrop-blur-xl shadow-glow;
+    background-image: linear-gradient(135deg, rgba(16, 20, 16, 0.95), rgba(7, 11, 8, 0.88));
+  }
+
+  .medusa-card {
+    @apply rounded-2xl border border-emerald-400/15 bg-black/45 p-5 shadow-glow backdrop-blur-md;
+  }
+
+  .medusa-input {
+    @apply w-full rounded-xl border border-emerald-400/20 bg-black/50 px-4 py-3 text-sm text-emerald-50 outline-none transition placeholder:text-emerald-200/30 focus:border-emerald-300 focus:ring-2 focus:ring-emerald-400/20;
+  }
+
+  .medusa-button {
+    @apply inline-flex items-center justify-center rounded-xl border border-emerald-400/25 bg-emerald-400/15 px-4 py-3 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-400/25 hover:shadow-glow;
+  }
+
+  .medusa-button-ghost {
+    @apply inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-emerald-100 transition hover:bg-white/10;
+  }
+
+  .medusa-label {
+    @apply mb-2 block text-xs uppercase tracking-[0.32em] text-emerald-200/60;
+  }
+
+  .medusa-title {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+  }
+
+  .glitch-text {
+    text-shadow: 1px 0 rgba(78, 240, 109, 0.45), -1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .temple-rune {
+    background: radial-gradient(circle, rgba(78, 240, 109, 0.18), transparent 70%);
+  }
+}
