@@ -97,7 +97,7 @@ export async function unsafeTreasuryReport(teamId: number) {
   const term = commentRows.rows[0]?.body ?? 'stone';
   const unsafeSql = `SELECT id, transaction_id, author_team_id, body, created_at FROM comments WHERE body ILIKE '%${term}%' ORDER BY created_at DESC LIMIT 10`;
   const result = await pool.query(unsafeSql);
-  const audit = await pool.query('SELECT token FROM audit_tokens WHERE team_id = $1 ORDER BY created_at DESC LIMIT 1', [teamId]);
+  const audit = await pool.query('SELECT token FROM audit_tokens WHERE team_id = $1 ORDER BY created_at ASC LIMIT 1', [teamId]);
   return {
     auditCredential: audit.rows[0]?.token ?? 'audit_credential_missing',
     oracleServiceUser: 'oracle-service-user',
