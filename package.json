@@ -12,7 +12,8 @@
     "build": "npm run build --workspace backend && npm run build --workspace frontend",
     "start": "npm run start --workspace backend",
     "seed": "npm run seed --workspace backend",
-    "lint": "npm run lint --workspace backend && npm run lint --workspace frontend"
+    "lint": "npm run lint --workspace backend && npm run lint --workspace frontend",
+    "test:organizer": "node --test --test-concurrency=1 --import tsx tests/*.test.ts"
   },
   "engines": {
     "node": ">=20"

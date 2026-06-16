@@ -20,6 +20,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.backend
+      shm_size: '2gb'
     env_file:
       - .env
     environment:
@@ -44,6 +45,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.frontend
+      shm_size: '2gb'
       args:
         NEXT_PUBLIC_API_URL: http://localhost/api
     env_file:

@@ -32,7 +32,7 @@ function resolveDatabaseUrl(databaseUrl: string) {
 
 export const config = {
   port: Number(process.env.PORT ?? 4000),
-  databaseUrl: resolveDatabaseUrl(process.env.DATABASE_URL ?? 'postgres://medusa:medusa@localhost:5432/medusa'),
+  databaseUrl: resolveDatabaseUrl(process.env.DATABASE_URL ?? 'postgres://medusa:medusa@postgres:5432/medusa'),
   jwtSecret: process.env.JWT_SECRET ?? 'medusa-temple-secret-change-me',
   adminEmail: process.env.ADMIN_EMAIL ?? 'oracle@medusa.ctf',
   adminPassword: process.env.ADMIN_PASSWORD ?? 'change-me-now',

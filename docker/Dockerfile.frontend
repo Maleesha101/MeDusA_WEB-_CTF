@@ -1,24 +1,32 @@
-FROM node:20-alpine AS deps
-WORKDIR /app
-COPY frontend/package.json frontend/tsconfig.json frontend/next.config.mjs frontend/tailwind.config.ts frontend/postcss.config.mjs ./frontend/
-COPY package.json ./
-RUN npm install --workspace frontend --omit=dev
-
+# Build stage for Next.js frontend
 FROM node:20-alpine AS build
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+# Install build dependencies
+RUN apk add --no-cache libc6-compat
+# Build arguments
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-RUN npm install --workspace frontend
+# Increase memory limit for Next.js build
+ENV NODE_OPTIONS=--max-old-space-size=4096
+# Copy the entire repository (including root package.json and lockfile)
+COPY . .
+# Remove any possibly corrupted lockfile
+RUN rm -f package-lock.json && find . -name package-lock.json -delete
+# Install all workspace dependencies at root (no lockfile)
+RUN npm install --no-package-lock
+# Build the frontend using workspace command
 RUN npm run build --workspace frontend
 
+# Runtime stage
 FROM node:20-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=build /app/frontend/.next ./frontend/.next
-COPY --from=build /app/frontend/public ./frontend/public
+# Copy built assets and node_modules from the build stage
+COPY --from=build /app/frontend ./frontend
+# No public folder to copy – omitted
 COPY --from=build /app/frontend/package.json ./frontend/package.json
 COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./package.json
 EXPOSE 3000
+# Start the frontend using workspace command
 CMD ["npm", "run", "start", "--workspace", "frontend"]
