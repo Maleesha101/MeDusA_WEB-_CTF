@@ -13,7 +13,7 @@ export default function DashboardPage() {
   useEffect(() => {
     (async () => {
       try {
-        const me = await apiFetch('/api/me');
+        const me = await apiFetch('/me');
         setTeam(me.team);
         const chamberData = await apiFetch('/api/chambers');
         setChambers(chamberData.chambers);

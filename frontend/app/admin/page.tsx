@@ -11,7 +11,7 @@ export default function AdminPage() {
   const [mode, setMode] = useState<'login' | 'dashboard'>('login');
 
   async function login() {
-    await apiFetch('/api/admin/login', {
+    await apiFetch('/admin/login', {
       method: 'POST',
       body: JSON.stringify({ email, password })
     });
@@ -21,11 +21,11 @@ export default function AdminPage() {
 
   async function refresh() {
     const [teams, solves, scoreboard, traffic, chambers] = await Promise.all([
-      apiFetch('/api/admin/teams'),
-      apiFetch('/api/admin/solves'),
-      apiFetch('/api/admin/scoreboard'),
-      apiFetch('/api/admin/traffic'),
-      apiFetch('/api/admin/chambers')
+      apiFetch('/admin/teams'),
+      apiFetch('/admin/solves'),
+      apiFetch('/admin/scoreboard'),
+      apiFetch('/admin/traffic'),
+      apiFetch('/admin/chambers')
     ]);
     setPayload({ teams, solves, scoreboard, traffic, chambers });
   }

@@ -15,7 +15,7 @@ export default function ChamberPage() {
   useEffect(() => {
     (async () => {
       try {
-        await apiFetch('/api/me');
+        await apiFetch('/me');
         const chamberData = await apiFetch(`/api/chamber/${chamberId}`);
         setChamber(chamberData.chamber);
         const hintData = await apiFetch(`/api/hints?chamberId=${chamberId}`);

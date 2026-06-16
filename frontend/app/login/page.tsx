@@ -16,7 +16,7 @@ export default function LoginPage() {
     setBusy(true);
     setError('');
     try {
-      await apiFetch('/api/login', {
+      await apiFetch('/login', {
         method: 'POST',
         body: JSON.stringify({ name, password })
       });
