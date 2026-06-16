@@ -102,7 +102,7 @@ export async function unsafeTreasuryReport(teamId: number) {
     auditCredential: audit.rows[0]?.token ?? 'audit_credential_missing',
     oracleServiceUser: 'oracle-service-user',
     rows: result.rows,
-    legacyPublicKey: process.env.LEGACY_PUBLIC_KEY ?? 'legacy-public-key-exposed-in-training'
+    legacyPublicKey: 'MEDUSA-PUBLIC-KEY'
   };
 }
 
