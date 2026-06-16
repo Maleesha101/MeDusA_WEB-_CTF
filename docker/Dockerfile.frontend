@@ -25,6 +25,7 @@ ENV NODE_ENV=production
 COPY --from=build /app/frontend/.next ./frontend/.next
 # No public folder to copy – omitted
 COPY --from=build /app/frontend/package.json ./frontend/package.json
+COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/node_modules ./node_modules
 EXPOSE 3000
 # Start the frontend using workspace command
