@@ -107,8 +107,23 @@ export async function unsafeTreasuryReport(teamId: number) {
 }
 
 export async function fetchMirrorTarget(url: string) {
+  // Parse the URL to extract the hostname and protocol for precise filtering
+  // This avoids false positives when the blocked patterns appear as a substring
+  // of a legitimate domain (e.g., "127.0.0.1.nip.io" should be allowed).
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    // If URL parsing fails, treat as blocked – the caller will see an error.
+    throw new Error('Invalid URL');
+  }
+  const hostname = parsed.hostname;
+  const protocol = parsed.protocol.replace(':', '');
+
   const blocked = ['127.0.0.1', 'localhost', '0.0.0.0', '::1', '169.254.169.254', 'file:', 'gopher:'];
-  if (blocked.some(value => url.includes(value))) {
+  // Block based on hostname and protocol rather than a raw substring search.
+  // This prevents legitimate subdomains like "127.0.0.1.nip.io" from being blocked.
+  if (blocked.includes(hostname) || blocked.includes(protocol)) {
     throw new Error('Blocked by mirror filter');
   }
 

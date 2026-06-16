@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+export { assert };
 import crypto from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
